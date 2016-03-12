@@ -159,6 +159,10 @@ namespace Microsoft.AspNetCore.StaticFiles
 </body>
 </html>");
             string data = builder.ToString();
+            
+            //Compress page
+            data = data.Replace((char)(10), ' ').Replace((char)(13), ' ').Replace("  ", " ");
+
             byte[] bytes = Encoding.UTF8.GetBytes(data);
             context.Response.ContentLength = bytes.Length;
             return context.Response.Body.WriteAsync(bytes, 0, bytes.Length);
